@@ -11,6 +11,9 @@
 #define ESP_PANEL_USE_SUPPORTED_BOARD   (1)
 
 #if ESP_PANEL_USE_SUPPORTED_BOARD
+
+#define BACKLIGHT_DEFAULT_ON (1)
+
 /*
  * Supported Boards.
  *  - ESP32-C3-LCDkit: https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-lcdkit/index.html

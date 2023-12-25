@@ -56,7 +56,11 @@ void ESP_PanelBacklight::init(void)
             .timer_sel = config.pwm.timer,
             .hpoint = 0,
         };
+#if BACKLIGHT_DEFAULT_ON
         channel_conf.duty = config.flags.light_on_level ? BIT(config.pwm.resolution) - 1 : 0;
+#else
+        channel_conf.duty = 0;
+#endif
         CHECK_ERROR_RETURN(ledc_timer_config(&timer_conf));
         CHECK_ERROR_RETURN(ledc_channel_config(&channel_conf));
     } else {
@@ -68,7 +72,11 @@ void ESP_PanelBacklight::init(void)
             .intr_type = GPIO_INTR_DISABLE,
         };
         CHECK_ERROR_RETURN(gpio_config(&io_conf));
+#if BACKLIGHT_DEFAULT_ON
         CHECK_ERROR_RETURN(gpio_set_level((gpio_num_t)config.io_num, config.flags.light_on_level));
+#else
+        CHECK_ERROR_RETURN(gpio_set_level((gpio_num_t)config.io_num, 0));
+#endif
     }
     is_initialized = true;
 }
